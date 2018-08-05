@@ -1,0 +1,13 @@
+design_guideline
+
+build/
+/.idea
+/run
+.gradle
+
+*.iml
+*.ipr
+*.iws
+*.properties
+
+!gradle.properties

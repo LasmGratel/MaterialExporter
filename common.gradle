@@ -1,0 +1,13 @@
+apply from: rootProject.file('configuration.gradle')
+
+repositories {
+	jcenter()
+	maven {
+		name = "forge"
+		url = "http://files.minecraftforge.net/maven"
+	}
+	maven {
+		name = "sonatype"
+		url = "https://oss.sonatype.org/content/repositories/snapshots/"
+	}
+}

@@ -1,0 +1,26 @@
+apply plugin: 'java' // To add "clean" task to the root project.
+apply from: 'configuration.gradle'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+
+subprojects {
+    apply from: rootProject.file('common.gradle')
+}
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+task wrapper(type: Wrapper, description: 'Creates and deploys the Gradle wrapper to the current directory.') {
+    gradleVersion = '2.6'
+}
+
+subprojects.each { subproject -> evaluationDependsOn( subproject.path ) }
+
+task setupDecompWorkspaceAll(dependsOn: projects.collect { ':' + it + ':setupDecompWorkspace'}) {}
+
+task setupCIWorkspaceAll(dependsOn: projects.collect { ':' + it + ':setupCIWorkspace'}) {}
+
+configurations {
+    deployerJars
+}

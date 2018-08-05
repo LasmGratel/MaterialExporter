@@ -1,0 +1,11 @@
+import javax.tools.ToolProvider
+
+//Make sure JAVA_HOME is set as an environment variable
+ext.javaToolsJar = ((URLClassLoader) ToolProvider.getSystemToolClassLoader()).getURLs()
+
+ext.version = '0.0.1-SNAPSHOT'
+
+ext.projects = [
+    'MaterialExporter-1.7.10',
+    'MaterialExporter-1.12.2'
+]

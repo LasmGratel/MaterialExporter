@@ -1,0 +1,60 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+    }
+}
+apply plugin: 'forge'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+version = ext.version
+archivesBaseName = project.projectDir.name
+
+minecraft {
+    version = "1.7.10-10.13.4.1614-1.7.10"
+    runDir = "eclipse"
+    mappings = "stable_12"
+}
+
+repositories {
+    maven {
+        name = "CurseForge"
+        url = "https://minecraft.curseforge.com/api/maven/"
+    }
+    maven {
+        name = "IC2"
+        url = "http://maven.ic2.player.to/"
+    }
+}
+
+dependencies {
+	compile project(':MaterialExporter-Common')
+    compileOnly 'net.industrial-craft:industrialcraft-2:2.2.82-experimental:dev'
+    runtime 'industrial-craft:industrialcraft-2:2.2.827-experimental'
+    compileOnly 'gregtech-5-unofficial:gregtech:5.09.31:dev'
+    runtime 'gregtech-5-unofficial:gregtech:5.09.31'
+}
+
+processResources
+{
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+        
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
